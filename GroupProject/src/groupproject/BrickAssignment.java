@@ -4,7 +4,7 @@
  * This program deomstrates passing arguments to a superclass constructor
  */
 package brickassignment;
-import java.util.Scanner;
+import javax.swing.JOptionPane;
 public class BrickAssignment {
 
     public static void main(String[] args) {
@@ -19,14 +19,13 @@ public class BrickAssignment {
         double layer;       //
         double brickNum;    //
         double totalBricks; // total number of bricks
+        double allTotalBricks = 0;
         int iter;           // iteration
         int colNum;
         String cont = "y";
         String error = "y";
+        String input;
         
-        // Create a Scanner object for keyboard input.
-        Scanner keyboard = new Scanner(System.in);
-
         // keep running until the user no longer wants to continue
         while (cont.equalsIgnoreCase("y") || cont.equalsIgnoreCase("yes")) {
                     
@@ -36,19 +35,21 @@ public class BrickAssignment {
             width = 0;
             height = 0;
             
-            System.out.println("This program assumes brick dimensions of"
-                    + "Length = 8.25in, Width = 3.875in, Height = 2.5in");
-            System.out.println("How many pillars/columns: ");
             while (error.equals("y")) {
                 try {
-                    colNum = keyboard.nextInt();
+                    input = JOptionPane.showInputDialog("This program assumes "
+                            + "brick dimensions of Length = 8.25in, "
+                            + "Width = 3.875in, Height = 2.5in" 
+                            + '\n' + "How many pillars/columns: ");
+                    colNum = Integer.parseInt(input);
                     while (colNum < 0) {
-                        System.out.println("Must be a positive number: ");
-                        colNum = keyboard.nextInt();
+                        input = JOptionPane.showInputDialog("Must be a "
+                                + "positive number: ");
+                        colNum = Integer.parseInt(input);
                     }
                     error = "n";
                 } catch (Exception e) {
-                    System.out.println("Must be an intiger.");
+                    JOptionPane.showMessageDialog(null, "Must be a number.");
                 }
             }
             error = "y";
@@ -56,54 +57,57 @@ public class BrickAssignment {
             
             for (iter = 1; iter <= colNum; iter++){
 
-                System.out.println("Enter the following " + 
+                JOptionPane.showMessageDialog(null, "Enter the following " + 
                         "dimensions of pillar/column number " + iter + 
                         "(in inches):");
                 
                 // Get length.
-                System.out.print("Length: ");
                 while (error.equals("y")) {
                     try {
-                        length = keyboard.nextDouble();
+                        input = JOptionPane.showInputDialog("Length: ");
+                        length = Double.parseDouble(input);
                         while (length <= 0) {
-                            System.out.println("Must be a positive number: ");
-                            length = keyboard.nextDouble();
+                            input = JOptionPane.showInputDialog("Must be a "
+                                    + "positive number: ");
+                            length = Double.parseDouble(input);
                         }
                         error = "n";
                     } catch (Exception e) {
-                        System.out.println("Must be a number.");
+                        JOptionPane.showMessageDialog(null, "Must be a number.");
                     }
                 }
                 error = "y";
             
                 // Get width.
-                System.out.print("Width: ");
                 while (error.equals("y")) {
                     try {
-                        width = keyboard.nextDouble();
+                        input = JOptionPane.showInputDialog("Width: ");
+                        width = Double.parseDouble(input);
                         while (width <= 0) {
-                            System.out.println("Must be a positive number: ");
-                            width = keyboard.nextDouble();
+                            input = JOptionPane.showInputDialog("Must be a "
+                                    + "positive number: ");
+                            width = Double.parseDouble(input);
                         }
                         error = "n";
                     } catch (Exception e) {
-                        System.out.println("Must be a number");
+                        JOptionPane.showMessageDialog(null, "Must be a number.");
                     }
                 }
                 error = "y";
             
                 // Get height.
-                System.out.print("Height: ");
                 while (error.equals("y")) {
                     try {
-                        height = keyboard.nextDouble();
+                        input = JOptionPane.showInputDialog("Height: ");
+                        height = Double.parseDouble(input);
                         while (height <= 0) {
-                            System.out.println("Must be a positive number: ");
-                            height = keyboard.nextDouble();
+                            input = JOptionPane.showInputDialog("Must be a "
+                                    + "positive number: ");
+                            height = Double.parseDouble(input);
                         }
                         error = "n";
                     } catch (Exception e) {
-                        System.out.println("Must be a number");
+                        JOptionPane.showMessageDialog(null, "Must be a number.");
                     }
                 }
                 error = "y";
@@ -115,25 +119,25 @@ public class BrickAssignment {
             
                 // Calculate number of layers and number of bricks for all layers
                 layer = height / brickH;
-                brickNum = brickNum * layer;
+                totalBricks = brickNum * layer;
                 
                 
-                System.out.println("\n\n");
-                System.out.println("Length: " + length);
-                System.out.println("Width: " + width);
-                System.out.println("Height: " + height);
-                System.out.println("layer count: " + layer);
-                System.out.println("Brick number: " + brickNum);
-                totalBricks = totalBricks + brickNum;
+                JOptionPane.showMessageDialog(null, "Length: " + length + '\n' +
+                        "Width: " + width + '\n' +
+                        "Height: " + height + '\n' +
+                        "layer count: " + layer + '\n' +
+                        "Brick number per layer: " + brickNum);
+                allTotalBricks = allTotalBricks + totalBricks;
             }
-            System.out.println("");
-            System.out.println("The total number of bricks: " + totalBricks);
-            cont = keyboard.nextLine();
+            JOptionPane.showMessageDialog(null, "The total number of bricks: " + 
+                    allTotalBricks);
+            cont = JOptionPane.showInputDialog("Would you like to run pillar again"
+                    + "starting from zero bricks: ");
             while (!cont.equalsIgnoreCase("n") && !cont.equalsIgnoreCase("no") &&
                     !cont.equalsIgnoreCase("y") && !cont.equalsIgnoreCase("yes")) {
-                System.out.println("Would you like to run the program again, "
-                        + "starting from zero bricks? Yes or no: ");
-                cont = keyboard.nextLine();
+                cont = JOptionPane.showInputDialog("Would you like to run the "
+                        + "program again, starting from zero bricks? " 
+                        + '\n' + "Yes or no: ");
             }
         }
     }
