@@ -1,0 +1,45 @@
+package filewritedemo2;
+
+import javax.swing.JOptionPane;     // For JOption Pane
+import java.io.*;                   // Needed for File and IOException
+
+public class FileWriteDemo2 
+{
+    public static void main(String[] args) throws IOException
+    {
+        String filename;
+        String wordNumber;
+        int numWords;
+        String input;
+        
+        JOptionPane.showMessageDialog(null, "This Program will Print to File.");
+        
+        input = JOptionPane.showInputDialog("How many words will you enter? ");
+        numWords = Integer.parseInt(input);
+        
+        filename = JOptionPane.showInputDialog("Please Enter the Filename: ");
+        
+        File file = new File(filename);
+        if (file.exists())
+        {
+            JOptionPane.showMessageDialog(null, "The file " + filename + 
+                    " already exists. Cannot override file.");
+            
+            System.exit(0);        
+        }
+        
+        try (PrintWriter outputFile = new PrintWriter(file)) 
+        {
+            for (int i = 1; i <= numWords; i++)
+            {
+                wordNumber = JOptionPane.showInputDialog("Enter the word "
+                        + "for number " + i + " : ");
+                
+                outputFile.println(wordNumber);
+            }        
+        }
+        
+        JOptionPane.showMessageDialog(null, "Data has been written to "
+                        + "the file ");
+    }
+}
