@@ -59,17 +59,19 @@ public class BrickAssignment {
 
                 JOptionPane.showMessageDialog(null, "Enter the following " + 
                         "dimensions of pillar/column number " + iter + 
-                        "(in inches):");
+                        "(in FEET!):");
                 
                 // Get length.
                 while (error.equals("y")) {
                     try {
                         input = JOptionPane.showInputDialog("Length: ");
                         length = Double.parseDouble(input);
+                        length = length * 12;
                         while (length <= 0) {
                             input = JOptionPane.showInputDialog("Must be a "
                                     + "positive number: ");
                             length = Double.parseDouble(input);
+                            length = length * 12;
                         }
                         error = "n";
                     } catch (Exception e) {
@@ -83,10 +85,12 @@ public class BrickAssignment {
                     try {
                         input = JOptionPane.showInputDialog("Width: ");
                         width = Double.parseDouble(input);
+                        width = width * 12;
                         while (width <= 0) {
                             input = JOptionPane.showInputDialog("Must be a "
                                     + "positive number: ");
                             width = Double.parseDouble(input);
+                            width = width * 12;
                         }
                         error = "n";
                     } catch (Exception e) {
@@ -100,10 +104,12 @@ public class BrickAssignment {
                     try {
                         input = JOptionPane.showInputDialog("Height: ");
                         height = Double.parseDouble(input);
+                        height = height * 12;
                         while (height <= 0) {
                             input = JOptionPane.showInputDialog("Must be a "
                                     + "positive number: ");
                             height = Double.parseDouble(input);
+                            height = height * 12;
                         }
                         error = "n";
                     } catch (Exception e) {
@@ -121,16 +127,18 @@ public class BrickAssignment {
                 layer = height / brickH;
                 totalBricks = brickNum * layer;
                 
-                
+                length = length / 12;
+                width = width / 12;
+                height = height / 12;
                 JOptionPane.showMessageDialog(null, "Length: " + length + '\n' +
                         "Width: " + width + '\n' +
                         "Height: " + height + '\n' +
-                        "layer count: " + layer + '\n' +
-                        "Brick number per layer: " + brickNum);
+                        "layer count: " + (Math.ceil(layer)) + '\n' +
+                        "Brick number per layer: " + (Math.round(brickNum)));
                 allTotalBricks = allTotalBricks + totalBricks;
             }
             JOptionPane.showMessageDialog(null, "The total number of bricks: " + 
-                    allTotalBricks);
+                    (Math.ceil(allTotalBricks)));
             cont = JOptionPane.showInputDialog("Would you like to run pillar again"
                     + "starting from zero bricks: ");
             while (!cont.equalsIgnoreCase("n") && !cont.equalsIgnoreCase("no") &&
