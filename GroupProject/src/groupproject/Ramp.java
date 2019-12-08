@@ -7,9 +7,9 @@ package groupproject;
 
 /**
  *
- * @author merrittw1813
+ * @author The King
  */
-public class Wall 
+public class Ramp 
 {
     private double length;
     private double height;
@@ -20,13 +20,13 @@ public class Wall
      * @param h the height of the wall
      */
     
-    public Wall(double len, double h)
+    public Ramp(double len, double h)
     {
         length = len;
         height = h;
     }
     
-    /**
+     /**
      * The setHeight method stores a value in the
      * height field.
      * @param h the value to store the height
@@ -37,10 +37,10 @@ public class Wall
         height = h;
     }
     
-     /**
+    /**
      * The setLength method stores a value in the
-     * length field.
-     * @param len The value to store length.
+     * height field.
+     * @param len the value to store the height
      */
     
     public void setLength(double len)
@@ -48,50 +48,40 @@ public class Wall
         length = len;
     }
     
-    
-    /**
+     /**
      * The getHeight method returns a objects
      * height.
      * @return The value of the height field.
      */
+    
     public double getHeight()
     {
-        return height / 12;
+        return height;
     }
     
-    
     /**
-     * The getLength method returns a rectangle
-     * object's length.
-     * @return The value in the length field.
+     * The getLength method returns a objects
+     * length.
+     * @return The value of the length field.
      */
     
     public double getLength()
     {
-        return length / 12; 
+        return length; 
     }
     
-    
     /**
-     * The getArea method returns a rectangle
-     * object's length.
-     * @return The value in the length field.
+     * The getSquareYards methods returns an objects square yards
+     * @return the value of the square yards field.
      */
     
-    public double getBrickLength()
+    public double getRampHeight()
+    {
+        return height / 2.5;
+    }
+    
+    public double getRampLength()
     {
         return length / 8.25;
     }
-    
-    /**
-     * The getBrickHeight method returns a walls object
-     * @objects length.
-     * @return the value of the length field
-     */
-    
-    public double getBrickHeight()
-    {
-        return height / 3.875;
-    }
- 
-}
+} 
