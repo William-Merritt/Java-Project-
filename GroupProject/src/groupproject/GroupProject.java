@@ -144,7 +144,7 @@ public class GroupProject
                + "\n" + "=================================" 
                + "\n" + "Width: " + myWall.getLength() 
                + "\n" + "Height: " + myWall.getHeight() +"\n"
-               + "Number of bricks wide: " + Math.round(myWall.getBrickLength()) 
+               + "Number of bricks long: " + Math.round(myWall.getBrickLength()) 
                + "\n"  
                + "Number of bricks tall: " + Math.round(myWall.getBrickHeight())
                + "\n" + "Total number of bricks: " + Math.round(totalBricks) 
@@ -193,7 +193,6 @@ public class GroupProject
         
         String inputString;             //To hold input from the user
         
-        totalBricks = 0;
         
         JOptionPane.showMessageDialog(null, "Please enter the dimensions of "
                 + "the pillar");
@@ -210,12 +209,8 @@ public class GroupProject
         Pillar myPillar = 
                 new Pillar(length, width, height);
         
-       JOptionPane.showMessageDialog(null, "Here are the dimensions of"
+       JOptionPane.showMessageDialog(null, "Here are the dimensions of "
                 + "the pillar ");
-       
-       totalPallets = totalBricks / 500;
-       
-       overallCost = Math.ceil(totalPallets) * 250.00;
        
        brickVol = myPillar.getBrickVolume();
        
@@ -224,6 +219,10 @@ public class GroupProject
        brickNum = layerVol / brickVol;
        
        totalBricks = brickNum * myPillar.getLayers();
+       
+       totalPallets = totalBricks / 500;
+       
+       overallCost = Math.ceil(totalPallets) * 250.00;
        
        allTotalBricks = allTotalBricks + totalBricks;
        
@@ -236,7 +235,7 @@ public class GroupProject
                + "Number of Layers: " + Math.ceil(myPillar.getLayers())
                + "\n" + "Total number of bricks per layer: " 
                + Math.round(brickNum) + "\n" 
-               + "Total numbers of bricks: " + Math.ceil(allTotalBricks)
+               + "Total number of bricks: " + Math.ceil(allTotalBricks)
                + "\n" + "Total number of pallets: " + Math.ceil(totalPallets) 
                + "\n" + String.format("Overall Cost: $%.2f",overallCost));
        
@@ -299,7 +298,6 @@ public class GroupProject
        totalPallets = totalBricks / 500;
        
        overallCost = Math.ceil(totalPallets) * 250.00;
-       
        
        rampSide = totalBricks / 2;
        
@@ -365,8 +363,9 @@ public class GroupProject
         JOptionPane.showMessageDialog(null, "Here are the dimensions of"
                 + " the arch. ");
         
-        totalBricks = myArch.getArchLength() * myArch.getArchHeight() 
-               * myArch.getArchWidth();
+        totalBricks = Math.round(myArch.getArchLength()) * 
+               Math.round(myArch.getArchHeight()) 
+               * Math.round(myArch.getArchWidth());
         
        totalPallets = totalBricks / 500;
        
@@ -374,11 +373,11 @@ public class GroupProject
         
         JOptionPane.showMessageDialog(null, "Materials of the Arch"
                + "\n" + "=================================" 
-               + "\n" + "Length: " + myArch.getArchLength() 
-               + "\n" + "Width: " + myArch.getArchWidth() +"\n"
-               + "Height: " + myArch.getArchHeight()
+               + "\n" + "Length: " + myArch.getLength() 
+               + "\n" + "Width: " + myArch.getWidth() +"\n"
+               + "Height: " + myArch.getHeight()
                + "\n"  
-               + "Total number of bricks: " + totalBricks
+               + "Total number of bricks: " + Math.round(totalBricks)
                + "\n" + "Total number of pallets: " + Math.ceil(totalPallets) 
                + "\n" + String.format("Overall Cost: $%.2f",overallCost));
         

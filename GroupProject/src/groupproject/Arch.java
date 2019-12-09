@@ -71,7 +71,7 @@ public class Arch
     
     public double getHeight()
     {
-        return height;
+        return height / 12;
     }
     
     /**
@@ -82,7 +82,7 @@ public class Arch
     
     public double getLength()
     {
-        return length; 
+        return length / 12; 
     }
     
     /**
@@ -92,7 +92,7 @@ public class Arch
     
     public double getWidth()
     {
-        return width;
+        return width / 12;
     }
     
     public double getArchHeight()

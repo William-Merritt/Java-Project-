@@ -91,7 +91,7 @@ public class Wall
     
     public double getBrickHeight()
     {
-        return height / 3.875;
+        return height / 2.5;
     }
  
 }
