@@ -1,12 +1,13 @@
 /**
  * First Edit: 11/18/2019
  * The project will calculate the cost of materials, and output them to the user
- * 
+ * Final Edit: 12/8/2019
+ * Group Names: Daniel Bigler, Reginald Jones, William Merritt
  */
 package groupproject;
 import javax.swing.JOptionPane;
 import java.util.Scanner;
-import java.io.*;
+
 
 /**
  *
@@ -20,9 +21,9 @@ public class GroupProject
      */
     public static void main(String[] args) 
     {
-        final double BRICK_LENGTH =  8.25;
-        final double BRICK_HEIGHT = 2.5;
-        final double BRICK_WIDTH = 3.875;
+        //final double BRICK_LENGTH =  8.25;
+        //final double BRICK_HEIGHT = 2.5;
+        //final double BRICK_WIDTH = 3.875;
         
         
         int menuChoice = 0;
@@ -31,6 +32,9 @@ public class GroupProject
         
         boolean exit = false;
         
+        JOptionPane.showMessageDialog(null, "This program finds the cost of "
+                + " creating Walls, Pillars, Ramps, and Archs"
+                + " using brick.");
      do
       {
         
@@ -65,25 +69,25 @@ public class GroupProject
         {
             case 1:
                 JOptionPane.showMessageDialog(null, "You have selected "
-                        + " menu choice number 1.");
+                        + "menu choice number 1.");
                 getWallMaterials();
                 break;
 
             case 2:
                 JOptionPane.showMessageDialog(null, "You have selected "
-                        +" menu choice number 2.");
+                        +"menu choice number 2.");
                 getPillarMaterials();
                 break;
 
             case 3:
                 JOptionPane.showMessageDialog(null, "You have selected "
-                        +" menu choice number 3.");
+                        +"menu choice number 3.");
                 getRampMaterials();
                 break;
             
             case 4:
                 JOptionPane.showMessageDialog(null, "You have selected "
-                        +" menu choice number 4.");
+                        +"menu choice number 4.");
                 getArchMaterials();
                 break;
             
@@ -105,40 +109,64 @@ public class GroupProject
     
     public static void getWallMaterials()
     {
-        double length;
+        double length;              //To hold the width of the wall
         double width;
-        double height;
+        double height;              //To hold the height of the wall
+        double totalBricks;         //To hold the total number of bricks
+        double totalPallets;        //To hold the total number of pallets
+        double overallCost;         //To hold the final cost of materials
         
-        String inputString;
+        String inputString;         //To hold input from the user
         
         JOptionPane.showMessageDialog(null, "Please enter the dimensions of "
-                + " the wall");
+                + "the wall");
         
         inputString = JOptionPane.showInputDialog("Width: ");
         length = Double.parseDouble(inputString) * 12;
         
         inputString = JOptionPane.showInputDialog("Height: ");
         height = Double.parseDouble(inputString) * 12;
+    
         
         Wall myWall =
                 new Wall(length,height);
         
        JOptionPane.showMessageDialog(null, "Here are the dimensions of the wall");
+       
+       totalBricks = myWall.getBrickHeight() * myWall.getBrickLength();
+       
+       totalPallets = totalBricks / 500;
+       
+       overallCost = Math.ceil(totalPallets) * 250.00;
+       
         
-       System.out.println("Width: "+
-               myWall.getLength());
+       JOptionPane.showMessageDialog(null,"Materials of the Wall"
+               + "\n" + "=================================" 
+               + "\n" + "Width: " + myWall.getLength() 
+               + "\n" + "Height: " + myWall.getHeight() +"\n"
+               + "Number of bricks wide: " + Math.round(myWall.getBrickLength()) 
+               + "\n"  
+               + "Number of bricks tall: " + Math.round(myWall.getBrickHeight())
+               + "\n" + "Total number of bricks: " + Math.round(totalBricks) 
+               + "\n" + "Total number of pallets: " + Math.ceil(totalPallets) 
+               +"\n" + String.format("Overall Cost: $%.2f",overallCost));
        
-       System.out.println("Height: "+
-               myWall.getHeight());
+//       System.out.println("Width: "+
+//               myWall.getLength());
+//       
+//       System.out.println("Height: "+
+//               myWall.getHeight());
+//       
+//       System.out.println("Number of bricks wide: "+
+//               Math.round(myWall.getBrickLength()));
+//       
+//       System.out.println("Number of bricks tall: "+
+//               Math.round(myWall.getBrickHeight()));
+//       
+//       System.out.println("Total number of bricks: "+
+//               Math.round(totalBricks));
        
-       System.out.println("Number of bricks wide: "+
-               Math.round(myWall.getBrickLength()));
        
-       System.out.println("Number of bricks tall: "+
-               Math.round(myWall.getBrickHeight()));
-       
-       System.out.println("Total number of bricks: "+
-               Math.round(myWall.getBrickHeight() * myWall.getBrickLength()));
         
         
     }
@@ -149,21 +177,26 @@ public class GroupProject
      */
     public static void getPillarMaterials()
     {
-        double length;
-        double width;
-        double height;
-        double brickVol;
-        double layerVol;
-        double brickNum;
-        double totalBricks;
-        double allTotalBricks = 0;
+        double length;                  //To hold length of the pillar
+        double width;                   //To hold width of the pillar
+        double height;                  //To hold height of the pillar
+       
+        double brickVol;                //To hold the volume of brick
+        double layerVol;                //To hold the volume of the layers
+        double brickNum;                //To hold the numbers of bricks
         
-        String inputString;
+        double totalBricks;             //To hold the total numbers of bricks
+        double allTotalBricks = 0;
+        double totalPallets;            //To hold the total numbers of pallets
+        
+        double overallCost;             //To hold the final cost
+        
+        String inputString;             //To hold input from the user
         
         totalBricks = 0;
         
         JOptionPane.showMessageDialog(null, "Please enter the dimensions of "
-                + " the pillar");
+                + "the pillar");
         
         inputString = JOptionPane.showInputDialog("Length: ");
         length = Double.parseDouble(inputString) * 12;
@@ -178,19 +211,11 @@ public class GroupProject
                 new Pillar(length, width, height);
         
        JOptionPane.showMessageDialog(null, "Here are the dimensions of"
-                + " the pillar ");
-        
-       System.out.println("Length: "+
-               myPillar.getLength());
+                + "the pillar ");
        
-       System.out.println("Width: "+
-               myPillar.getWidth());
+       totalPallets = totalBricks / 500;
        
-       System.out.println("Height: "+
-               myPillar.getHeight());
-       
-       System.out.println("Layer Count: "+
-               Math.ceil(myPillar.getLayers()));
+       overallCost = Math.ceil(totalPallets) * 250.00;
        
        brickVol = myPillar.getBrickVolume();
        
@@ -200,13 +225,38 @@ public class GroupProject
        
        totalBricks = brickNum * myPillar.getLayers();
        
-       System.out.println("Total number of bricks per layer: "+
-               Math.round(brickNum));
-       
        allTotalBricks = allTotalBricks + totalBricks;
        
-       System.out.println("The total number of bricks is: "+
-               Math.ceil(allTotalBricks));
+        JOptionPane.showMessageDialog(null, "Materials of the Pillar"
+               + "\n" + "=================================" 
+               + "\n" + "Length: " + myPillar.getLength() 
+               + "\n" + "Width: " + myPillar.getWidth() +"\n"
+               + "Height: " + myPillar.getHeight() 
+               + "\n"  
+               + "Number of Layers: " + Math.ceil(myPillar.getLayers())
+               + "\n" + "Total number of bricks per layer: " 
+               + Math.round(brickNum) + "\n" 
+               + "Total numbers of bricks: " + Math.ceil(allTotalBricks)
+               + "\n" + "Total number of pallets: " + Math.ceil(totalPallets) 
+               + "\n" + String.format("Overall Cost: $%.2f",overallCost));
+       
+//       System.out.println("Length: "+
+//               myPillar.getLength());
+//       
+//       System.out.println("Width: "+
+//               myPillar.getWidth());
+//       
+//       System.out.println("Height: "+
+//               myPillar.getHeight());
+//       
+//       System.out.println("Layer Count: "+
+//               Math.ceil(myPillar.getLayers()));
+//       
+//       System.out.println("Total number of bricks per layer: "+
+//               Math.round(brickNum));
+//       
+//       System.out.println("The total number of bricks is: "+
+//               Math.ceil(allTotalBricks));
        
     }
     /**
@@ -215,12 +265,15 @@ public class GroupProject
      */
     public static void getRampMaterials()
     {
-        double height;
-        double length;
-        double rampSide;
-        double totalBricks;
+        double height;                         //To hold height of the ramp
+        double length;                         //To hold length of the ramp
+        double rampSide;                       //To hold one side of bricks
         
-        String inputString;
+        double totalBricks;                    //To hold total number of bricks
+        double totalPallets;                   //To hold total number of pallets
+        double overallCost;                    //To hold final cost
+        
+        String inputString;                    //To hold user input
         /**
          * Getting user input and converting to cubic yards to calculate 
          * the amount of concrete needed for building the ramp. 
@@ -238,26 +291,41 @@ public class GroupProject
         Ramp myRamp = 
                 new Ramp(length, height);
         
-       JOptionPane.showMessageDialog(null, "Here are the dimensions of"
-                + " the ramp in yards ");
-        
-       System.out.println("Height: "+
-               myRamp.getRampHeight());
-       
-       System.out.println("Length: "+
-               myRamp.getRampLength());
+       JOptionPane.showMessageDialog(null, "Here are the dimensions of "
+                + "the ramp ");
        
        totalBricks = myRamp.getRampHeight() * myRamp.getRampLength();
        
+       totalPallets = totalBricks / 500;
+       
+       overallCost = Math.ceil(totalPallets) * 250.00;
+       
+       
        rampSide = totalBricks / 2;
        
-       System.out.println("Total number of bricks: "
-               + totalBricks);
-       
-       System.out.println("Total number of bricks for one side: "
-               + rampSide);
+       JOptionPane.showMessageDialog(null, "Materials of the Ramp"
+               + "\n" + "=================================" 
+               + "\n" + "Height: " + myRamp.getRampHeight() 
+               + "\n" + "Length: " + myRamp.getRampLength() +"\n"
+               + "Total number of bricks for one side: " 
+               + rampSide
+               + "\n"  
+               + "Total number of bricks: " + totalBricks
+               + "\n" + "Total number of pallets: " + Math.ceil(totalPallets) 
+               + "\n" + String.format("Overall Cost: $%.2f",overallCost));
+        
+//       System.out.println("Height: "+
+//               myRamp.getRampHeight());
+//       
+//       System.out.println("Length: "+
+//               myRamp.getRampLength());
+//       
+//       System.out.println("Total number of bricks: "
+//               + totalBricks);
+//       
+//       System.out.println("Total number of bricks for one side: "
+//               + rampSide);
 
-   
     }
     /**
      * The getArchMaterials method will take user input and convert them into
@@ -269,12 +337,15 @@ public class GroupProject
          * Creating the variables for the arch materials.
          */
         
-        String inputString;
+        String inputString;                 //To hold user input
         
-        double length;
-        double width;
-        double height;
-        double totalBricks;
+        double length;                      //To hold length of the arch
+        double width;                       //To hold width of the arch
+        double height;                      //To hold height of the arch
+        
+        double totalBricks;                 //Total number of bricks
+        double totalPallets;                //To hold total number of pallets
+        double overallCost;                 //To hold final cost
         
         JOptionPane.showMessageDialog(null, "Please enter the dimensions of the"
                 + " arch in feet.");
@@ -294,29 +365,35 @@ public class GroupProject
         JOptionPane.showMessageDialog(null, "Here are the dimensions of"
                 + " the arch. ");
         
-//        System.out.println("Length: "+
-//               myArch.getLength());
+        totalBricks = myArch.getArchLength() * myArch.getArchHeight() 
+               * myArch.getArchWidth();
+        
+       totalPallets = totalBricks / 500;
+       
+       overallCost = Math.ceil(totalPallets) * 250.00;
+        
+        JOptionPane.showMessageDialog(null, "Materials of the Arch"
+               + "\n" + "=================================" 
+               + "\n" + "Length: " + myArch.getArchLength() 
+               + "\n" + "Width: " + myArch.getArchWidth() +"\n"
+               + "Height: " + myArch.getArchHeight()
+               + "\n"  
+               + "Total number of bricks: " + totalBricks
+               + "\n" + "Total number of pallets: " + Math.ceil(totalPallets) 
+               + "\n" + String.format("Overall Cost: $%.2f",overallCost));
+        
+//       System.out.println("Length: "+
+//               myArch.getArchLength());
 //       
 //       System.out.println("Width: "+
-//               myArch.getWidth());
+//               myArch.getArchWidth());
 //       
 //       System.out.println("Height: "+
-//               myArch.getHeight());
-       
-       System.out.println("Length: "+
-               myArch.getArchLength());
-       
-       System.out.println("Width: "+
-               myArch.getArchWidth());
-       
-       System.out.println("Height: "+
-               myArch.getArchHeight());
-       
-       totalBricks = myArch.getArchLength() * myArch.getArchHeight() 
-               * myArch.getArchWidth();
-       
-       System.out.println("Total Bricks Needed: "+
-               totalBricks);
+//               myArch.getArchHeight());
+//       
+//       
+//       System.out.println("Total Bricks Needed: "+
+//               totalBricks);
        
     }
    
